@@ -1,0 +1,23 @@
+# services:
+  video_server:
+    build: video_streaming/
+    # depends_on:
+    #   - 'redis'
+    ports: 
+      - '3000:3000'
+    links:
+     - redis:redis
+
+  redis: 
+    image: redis:latest
+    ports: 
+      - '9001:6379'
+    
+
+  redisBanner:
+    image: tenstartups/redis-commander
+    command: --redis-host redis
+    links: 
+      - redis:redis
+    ports:
+      - '9002:8081'
